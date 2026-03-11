@@ -358,39 +358,13 @@
               <div class="concerning-item">
                 <span>{{ $t('version') }} :</span>
                 <el-badge is-dot :hidden="!hasUpdate">
-                  <el-button @click="jump('https://github.com/maillab/cloud-mail/releases')">
-                    {{ currentVersion }}
+                  <el-button @click="jump('')">
+                    {{ v2.9.0 }}
                     <template #icon>
                       <Icon icon="qlementine-icons:version-control-16" style="font-size: 20px" color="#1890FF"/>
                     </template>
                   </el-button>
                 </el-badge>
-              </div>
-              <div class="concerning-item">
-                <span>{{ $t('community') }} : </span>
-                <div class="community">
-                  <el-button @click="jump('https://github.com/maillab/cloud-mail')">
-                    Github
-                    <template #icon>
-                      <Icon icon="codicon:github-inverted" width="22" height="22"/>
-                    </template>
-                  </el-button>
-                  <el-button @click="jump('https://t.me/cloud_mail_tg')">
-                    Telegram
-                    <template #icon>
-                      <Icon icon="logos:telegram" width="30" height="30"/>
-                    </template>
-                  </el-button>
-                </div>
-              </div>
-              <div class="concerning-item">
-                <span>{{ $t('support') }} : </span>
-                <el-button @click="jump('https://doc.skymail.ink/support.html')">
-                  {{ t('supportDesc') }}
-                  <template #icon>
-                    <Icon color="#79D6B5" icon="simple-icons:buymeacoffee" width="20" height="20"/>
-                  </template>
-                </el-button>
               </div>
               <div class="concerning-item">
                 <span>{{ $t('help') }} : </span>
