@@ -284,7 +284,7 @@ const zh = {
     noRecipientDesc: '即使没有注册的邮箱也能收到邮件',
     preview: '预览',
     help: '帮助',
-    document: '项目文档',
+    document: '使用教程',
     clearEmail: '邮件清除',
     sendEmailAddress: '发件人邮箱',
     toEmail: '收件人邮箱',
