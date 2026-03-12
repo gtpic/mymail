@@ -44,7 +44,12 @@ export async function email(message, env, ctx) {
 
 		const email = await PostalMime.parse(content);
 
-		const account = await accountService.selectByEmailIncludeDel({ env: env }, message.to);
+		let realToEmail = message.to;
+		if (email.to && email.to.length > 0) {
+			realToEmail = email.to[0].address;
+		}
+		
+		const account = await accountService.selectByEmailIncludeDel({ env: env }, realToEmail);
 
 		if (!account && noRecipient === settingConst.noRecipient.CLOSE) {
 			message.setReject('Recipient not found');
@@ -61,7 +66,7 @@ export async function email(message, env, ctx) {
 
 			let { banEmail, availDomain } = await roleService.selectByUserId({ env: env }, account.userId);
 
-			if (!roleService.hasAvailDomainPerm(availDomain, message.to)) {
+			if (!roleService.hasAvailDomainPerm(availDomain, realToEmail)) {
 				message.setReject('The recipient is not authorized to use this domain.');
 				return;
 			}
@@ -75,13 +80,13 @@ export async function email(message, env, ctx) {
 
 
 		if (!email.to) {
-			email.to = [{ address: message.to, name: emailUtils.getName(message.to)}]
+			email.to = [{ address: realToEmail, name: emailUtils.getName(realToEmail)}]
 		}
 
-		const toName = email.to.find(item => item.address === message.to)?.name || '';
+		const toName = email.to.find(item => item.address === realToEmail)?.name || '';
 
 		const params = {
-			toEmail: message.to,
+			toEmail: realToEmail,
 			toName: toName,
 			sendEmail: email.from.address,
 			name: email.from.name || emailUtils.getName(email.from.address),
@@ -131,12 +136,11 @@ export async function email(message, env, ctx) {
 
 		emailRow = await emailService.completeReceive({ env }, account ? emailConst.status.RECEIVE : emailConst.status.NOONE, emailRow.emailId);
 
-
 		if (ruleType === settingConst.ruleType.RULE) {
 
 			const emails = ruleEmail.split(',');
 
-			if (!emails.includes(message.to)) {
+			if (!emails.includes(realToEmail)) {
 				return;
 			}
 
