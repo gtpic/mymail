@@ -39,6 +39,12 @@ app.get('/test/allEmail/list', async (c) => {
 			return c.json({ code: 200, message: '没有匹配邮件', data: null });
 		}
 
+		// 格式化输出为：日期时间 | 收件邮箱地址 | 邮件正文
+		data.list = data.list.map(email => {
+			const textContent = email.text ? email.text.replace(/\s+/g, ' ').trim() : '';
+			return `${email.createTime} | ${email.userEmail} | ${textContent}`;
+		});
+
 		return c.json(result.ok(data));
 	} catch (error) {
 		return c.json(result.fail(error.message, 500));
