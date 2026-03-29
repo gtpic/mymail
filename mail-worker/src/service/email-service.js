@@ -658,6 +658,10 @@ const emailService = {
 			conditions.push(sql`${email.subject} COLLATE NOCASE LIKE ${'%'+ subject + '%'}`);
 		}
 
+		if (params.content) {
+			conditions.push(sql`${email.text} COLLATE NOCASE LIKE ${'%'+ params.content + '%'}`);
+		}
+
 		conditions.push(ne(email.status, emailConst.status.SAVING));
 
 		const countConditions = [...conditions];
