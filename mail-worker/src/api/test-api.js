@@ -32,7 +32,7 @@ app.get('/test/allEmail/list', async (c) => {
 			);
 			data.total = data.list.length;
 		}
-
+		delete data.latestEmail;
 		// 【关键新增】：如果过滤后一封匹配的都没有，直接返回“没有匹配邮件”的提示
 		if (data.list.length === 0) {
 			// 返回友好的提示信息（code: 200 代表请求正常，只是没数据）
