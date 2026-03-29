@@ -177,7 +177,7 @@
                   <div data-v-de1cf815="" class="language-json vp-adaptive-theme">
     
     
-    <pre data-v-de1cf815="" class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code _ngcontent-ng-c1976125850="" role="text"><span class="hljs-comment">// 1. 先定义您的账号密码</span>
+    <pre data-v-de1cf815="" class="shiki shiki-themes github-light github-dark vp-code" tabindex="0" style="line-height: 1.6;"><code _ngcontent-ng-c1976125850="" role="text"><span class="hljs-comment">// 1. 先定义您的账号密码</span>
 <span class="hljs-keyword">const</span> host = <span class="hljs-string">'https://email.baidusvip.com'</span>;
 <span class="hljs-keyword">const</span> account = { <span class="hljs-attr">email</span>: <span class="hljs-string">'admin@baidusvip.com'</span>, <span class="hljs-attr">password</span>: <span class="hljs-string">'123456'</span> };
 
@@ -323,7 +323,7 @@ const activeTab = ref('send')
   padding: 16px;
   border-radius: 8px;
   overflow-x: auto;
-  line-height: 1.5;
+  line-height: 0.9;
   font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
   margin: 10px 0 20px 0;
 }
