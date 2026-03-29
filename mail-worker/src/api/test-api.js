@@ -5,8 +5,8 @@ import result from '../model/result';
 app.get('/test/allEmail/latest', async (c) => {
 	const query = c.req.query();
     
-	// 从 Cloudflare 的环境变量中获取名为 API_KEY 的值
-	const secretKey = c.env.API_KEY || '';
+	// 从 Cloudflare 的环境变量中获取名为 api_key 的值
+	const secretKey = c.env.api_key || '';
     
 	// 校验地址栏传来的 key 是否等于环境变量中的暗号
 	if (query.key !== secretKey) {
