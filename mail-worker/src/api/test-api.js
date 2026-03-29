@@ -4,7 +4,6 @@ import result from '../model/result';
 
 app.get('/test/allEmail/list', async (c) => {
 	const query = c.req.query();
-    
 	const secretKey = c.env.api_key || '';
     
 	if (query.key !== secretKey) {
@@ -15,49 +14,60 @@ app.get('/test/allEmail/list', async (c) => {
 		query.size = query.size ? Number(query.size) : 20;
 		if (query.emailId) query.emailId = Number(query.emailId);
 
-		// 提前把地址栏的 content 参数扣下来
+		// 1. 提取所有自定义过滤参数
 		const searchContent = query.content;
-		if (searchContent) {
-			delete query.content; 
-		}
+		const searchSubject = query.subject;
+		const filterTo = query.to;
+		const filterFrom = query.from;
+		const showType = query.show || 'to'; // 默认为收件箱
 
-		// 【新增】：提取 show 参数，如果不传则默认是 'to' (看收件箱)
-		const showType = query.show || 'to';
+		// 移除会干扰数据库原生查询的参数
+		if (searchContent) delete query.content;
+		if (searchSubject) delete query.subject;
 
-		// 去数据库拉取最新的 size 封邮件
+		// 2. 去数据库拉取原始数据
 		const data = await emailService.allList(c, query);
 
-		// 【核心修改】：根据 show 参数过滤：'from' 为发件(type: 1)，其余统统视为收件(type: 0)
-		const targetType = showType === 'from' ? 1 : 0;
-		data.list = data.list.filter(email => email.type === targetType);
+		// 3. 执行多重过滤
+		data.list = data.list.filter(email => {
+			// A. 区分收发件类型 (show=from 看发件, 否则看收件)
+			const targetType = showType === 'from' ? 1 : 0;
+			if (email.type !== targetType) return false;
 
-		// 在这最新的几封邮件里做严格的二次筛选
-		if (searchContent) {
-			data.list = data.list.filter(email => 
-				(email.text && email.text.includes(searchContent)) || 
-				(email.content && email.content.includes(searchContent))
-			);
-			data.total = data.list.length;
-			
-			delete data.latestEmail;
-		}
+			// B. 匹配收件人关键字 (to)
+			if (filterTo && !(email.toEmail && email.toEmail.includes(filterTo))) return false;
 
-		// 如果过滤后一封匹配的都没有，直接返回提示
+			// C. 匹配发件人关键字 (from)
+			if (filterFrom && !(email.sendEmail && email.sendEmail.includes(filterFrom))) return false;
+
+			// D. 匹配标题关键字 (subject)
+			if (searchSubject && !(email.subject && email.subject.includes(searchSubject))) return false;
+
+			// E. 匹配正文关键字 (content)
+			if (searchContent) {
+				const inText = email.text && email.text.includes(searchContent);
+				const inHtml = email.content && email.content.includes(searchContent);
+				if (!inText && !inHtml) return false;
+			}
+
+			return true;
+		});
+
+		// 4. 清理多余字段
+		delete data.latestEmail;
+		data.total = data.list.length;
+
+		// 5. 结果处理
 		if (data.list.length === 0) {
 			return c.text('没有匹配邮件');
 		}
 
-		// 格式化输出为：日期时间 | 对应邮箱地址 | 邮件正文
+		// 6. 格式化输出
 		const formattedList = data.list.map(email => {
 			const textContent = email.text ? email.text.replace(/\s+/g, ' ').trim() : '';
-			
-			// 【核心修改】：如果是收件(type:0)显示 toEmail，如果是发件(type:1)显示 sendEmail
-			const displayEmail = email.type === 0 ? email.toEmail : email.sendEmail;
-			
-			return `${email.createTime} | ${displayEmail} | ${textContent}`;
+			return `${email.createTime} | ${email.sendEmail || '未知'} -> ${email.toEmail || '未知'} | ${textContent}`;
 		});
 
-		// 返回纯文本，每封邮件显示一行
 		return c.text(formattedList.join('\n'));
 	} catch (error) {
 		return c.json(result.fail(error.message, 500));
