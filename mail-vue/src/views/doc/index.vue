@@ -171,6 +171,46 @@
 <span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">  "data"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-005CC5, #005CC5);">null</span></span>
 <span class="line"><span style="color: var(--shiki-light-24292E, #24292E);">}</span></span></code></pre>
                   </div>
+                  <h2 data-v-de1cf815="" id="💡 如何快速测试？" tabindex="-1">💡 如何快速测试？<a data-v-de1cf815="" class="header-anchor" href="#添加用户" aria-label="Permalink to &quot;添加用户&quot;">&ZeroWidthSpace;</a></h2>
+                  <p data-v-de1cf815=""><strong data-v-de1cf815="">如果您想快速看看效果，可以打开浏览器输入你的邮局网址如：</strong>：<code data-v-de1cf815="">https://xxx.xxx</code></p>
+                  <p data-v-de1cf815=""><strong data-v-de1cf815="">按 F12 开发者工具，进入 Console (控制台)，依次复制运行以下两段代码（这段代码会自动帮您完成上述两步）：</strong></p>
+                  <div data-v-de1cf815="" class="language-json vp-adaptive-theme">
+    
+    
+    <pre data-v-de1cf815="" class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code _ngcontent-ng-c1976125850="" role="text"><span class="hljs-comment">// 1. 先定义您的账号密码</span>
+<span class="hljs-keyword">const</span> host = <span class="hljs-string">'https://email.baidusvip.com'</span>;
+<span class="hljs-keyword">const</span> account = { <span class="hljs-attr">email</span>: <span class="hljs-string">'admin@baidusvip.com'</span>, <span class="hljs-attr">password</span>: <span class="hljs-string">'123456'</span> };
+
+<span class="hljs-comment">// 2. 一键获取 Token 并查询最新邮件</span>
+fetch(<span class="hljs-string">`<span class="hljs-subst">${host}</span>/api/public/genToken`</span>, {
+    <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+    <span class="hljs-attr">headers</span>: { <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span> },
+    <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify(account)
+})
+.then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> res.json())
+.then(<span class="hljs-function"><span class="hljs-params">tokenData</span> =&gt;</span> {
+    <span class="hljs-keyword">if</span>(tokenData.code === <span class="hljs-number">200</span> &amp;&amp; tokenData.data.token) {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"✅ Token获取成功，正在查询邮件..."</span>);
+        <span class="hljs-comment">// 拿到 token 后，立即查询邮件</span>
+        <span class="hljs-keyword">return</span> fetch(<span class="hljs-string">`<span class="hljs-subst">${host}</span>/api/public/emailList`</span>, {
+            <span class="hljs-attr">method</span>: <span class="hljs-string">'POST'</span>,
+            <span class="hljs-attr">headers</span>: { 
+                <span class="hljs-string">'Content-Type'</span>: <span class="hljs-string">'application/json'</span>,
+                <span class="hljs-string">'Authorization'</span>: tokenData.data.token <span class="hljs-comment">// 填入Token</span>
+            },
+            <span class="hljs-attr">body</span>: <span class="hljs-built_in">JSON</span>.stringify({ <span class="hljs-attr">timeSort</span>: <span class="hljs-string">"desc"</span>, <span class="hljs-attr">size</span>: <span class="hljs-number">10</span> }) <span class="hljs-comment">// 获取最新10条</span>
+        });
+    } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">"Token获取失败："</span> + tokenData.message);
+    }
+})
+.then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> res.json())
+.then(<span class="hljs-function"><span class="hljs-params">emailData</span> =&gt;</span> {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"📩 最新邮件数据获取成功："</span>, emailData.data);
+})
+.catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> <span class="hljs-built_in">console</span>.error(err));
+</code></pre>
+   </div>
                 </div>
               </div>
             </div>
@@ -251,11 +291,10 @@ const activeTab = ref('send')
   line-height: 1.6;
 }
 .html-content code {
-  background-color: var(--el-fill-color-light, #f5f7fa);
   padding: 2px 6px;
   border-radius: 4px;
   color: var(--el-text-color-regular, #606266);
-  font-size: 14px;
+  font-size: 13px;
 }
 .html-content table {
   width: 100%;
