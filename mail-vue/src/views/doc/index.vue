@@ -61,6 +61,122 @@
           </el-scrollbar>
         </el-tab-pane>
 
+        <el-tab-pane label="API使用文档" name="api">
+          <el-scrollbar height="calc(100vh - 180px)">
+            <div class="html-content">
+              <div style="position:relative;" class="vp-doc _api_api-doc">
+                <div style="text-align: left;">
+                  <h1 id="接口文档" style="text-align: center; margin-bottom: 20px;" tabindex="-1"><span style="font-size: 24px;">接口文档</span></h1>
+                  <div class="tip custom-block">
+                    <p class="custom-block-title" style="font-size: 16px;"><strong>TIP</strong></p>
+                    <p>有些请求参数支持模糊匹配，可以传入%， 示例：'admin' 等值匹配， 'admin%' 开头匹配， '%@example.com' 结尾匹配， '%admin%' 包含匹配</p>
+                  </div>
+                  
+                  <h2 id="生成token" tabindex="-1">生成Token <a class="header-anchor" href="#生成token" aria-label="Permalink to &quot;生成Token&quot;">&ZeroWidthSpace;</a></h2>
+                  <p><strong>接口说明</strong>：用于生成确认身份的令牌，填入Authorization请求头，全局只有一个，重新生成旧的会失效</p>
+                  <p><strong>接口地址</strong>：<code>POST /api/public/genToken</code></p>
+                  <p><strong>请求参数</strong></p>
+                  <table tabindex="0">
+                    <thead><tr><th>参数</th><th>类型</th><th>必填</th><th>说明</th></tr></thead>
+                    <tbody>
+                      <tr><td>email</td><td>string</td><td>是</td><td>管理员邮箱</td></tr>
+                      <tr><td>password</td><td>string</td><td>是</td><td>邮箱密码</td></tr>
+                    </tbody>
+                  </table>
+                  <p><strong>返回示例</strong></p>
+                  <div class="language-json vp-adaptive-theme">
+                    <button title="Copy Code" class="copy"></button>
+                    <span class="lang">json</span>
+                    <pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="color: var(--shiki-light-24292E, #24292E);">{</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">  "code"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-005CC5, #005CC5);">200</span><span style="color: var(--shiki-light-24292E, #24292E);">,</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">  "message"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-032F62, #032F62);">"success"</span><span style="color: var(--shiki-light-24292E, #24292E);">,</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">  "data"</span><span style="color: var(--shiki-light-24292E, #24292E);">: {</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">      "token"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-032F62, #032F62);">"9f4e298e-7431-4c76-bc15-4931c3a73984"</span></span>
+<span class="line"><span style="color: var(--shiki-light-24292E, #24292E);">  }</span></span>
+<span class="line"><span style="color: var(--shiki-light-24292E, #24292E);">}</span></span></code></pre>
+                  </div>
+
+                  <h2 id="邮件查询" tabindex="-1">邮件查询 <a class="header-anchor" href="#邮件查询" aria-label="Permalink to &quot;邮件查询&quot;">&ZeroWidthSpace;</a></h2>
+                  <p><strong>接口地址</strong>：<code>POST /api/public/emailList</code></p>
+                  <p><strong>请求头</strong></p>
+                  <table tabindex="0">
+                    <thead><tr><th>Header</th><th>必填</th><th>说明</th></tr></thead>
+                    <tbody><tr><td>Authorization</td><td>是</td><td>身份令牌</td></tr></tbody>
+                  </table>
+                  <p><strong>请求参数</strong></p>
+                  <table tabindex="0">
+                    <thead><tr><th>参数</th><th>类型</th><th>必填</th><th>默认值</th><th>说明</th></tr></thead>
+                    <tbody>
+                      <tr><td>toEmail</td><td>string</td><td>否</td><td></td><td>收件人邮箱，支持模糊</td></tr>
+                      <tr><td>sendName</td><td>string</td><td>否</td><td></td><td>发件人名字，支持模糊</td></tr>
+                      <tr><td>sendEmail</td><td>sting</td><td>否</td><td></td><td>发件人邮箱，支持模糊</td></tr>
+                      <tr><td>subject</td><td>sting</td><td>否</td><td></td><td>邮件主题，支持模糊</td></tr>
+                      <tr><td>content</td><td>string</td><td>否</td><td></td><td>邮件html，支持模糊</td></tr>
+                      <tr><td>timeSort</td><td>string</td><td>否</td><td>desc</td><td>时间排序（asc 最旧，desc 最新）</td></tr>
+                      <tr><td>type</td><td>integer</td><td>否</td><td></td><td>邮件类型 （0 收件，1发件，空 全部）</td></tr>
+                      <tr><td>isDel</td><td>integer</td><td>否</td><td></td><td>是否删除 （0 正常，2删除，空 全部）</td></tr>
+                      <tr><td>num</td><td>integer</td><td>否</td><td>1</td><td>页码</td></tr>
+                      <tr><td>size</td><td>integer</td><td>否</td><td>20</td><td>每页数量</td></tr>
+                    </tbody>
+                  </table>
+                  <p><strong>返回示例</strong></p>
+                  <div class="language-json vp-adaptive-theme">
+                    <button title="Copy Code" class="copy"></button>
+                    <span class="lang">json</span>
+                    <pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="color: var(--shiki-light-24292E, #24292E);">{</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">  "code"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-005CC5, #005CC5);">200</span><span style="color: var(--shiki-light-24292E, #24292E);">,</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">  "message"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-032F62, #032F62);">"success"</span><span style="color: var(--shiki-light-24292E, #24292E);">,</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">  "data"</span><span style="color: var(--shiki-light-24292E, #24292E);">: [</span></span>
+<span class="line"><span style="color: var(--shiki-light-24292E, #24292E);">    {</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">      "emailId"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-005CC5, #005CC5);">999</span><span style="color: var(--shiki-light-24292E, #24292E);">,                         </span><span style="color: var(--shiki-light-6A737D, #6A737D);">// 邮件id</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">      "sendEmail"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-032F62, #032F62);">"hello@example.com"</span><span style="color: var(--shiki-light-24292E, #24292E);">,        </span><span style="color: var(--shiki-light-6A737D, #6A737D);">// 发件人邮箱</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">      "sendName"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-032F62, #032F62);">"hello"</span><span style="color: var(--shiki-light-24292E, #24292E);">,                    </span><span style="color: var(--shiki-light-6A737D, #6A737D);">// 发件人名字</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">      "subject"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-032F62, #032F62);">"Hello word"</span><span style="color: var(--shiki-light-24292E, #24292E);">,                </span><span style="color: var(--shiki-light-6A737D, #6A737D);">// 邮件主题</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">      "toEmail"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-032F62, #032F62);">"admin@example.com"</span><span style="color: var(--shiki-light-24292E, #24292E);">,         </span><span style="color: var(--shiki-light-6A737D, #6A737D);">// 收件人邮箱</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">      "toName"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-032F62, #032F62);">"admin"</span><span style="color: var(--shiki-light-24292E, #24292E);">,                       </span><span style="color: var(--shiki-light-6A737D, #6A737D);">// 收件人名字</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">      "createTime"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-032F62, #032F62);">"2099-12-30 23:99:99"</span><span style="color: var(--shiki-light-24292E, #24292E);">,    </span><span style="color: var(--shiki-light-6A737D, #6A737D);">// 接收或发送的时间（UTC 时间）</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">      "type"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-005CC5, #005CC5);">0</span><span style="color: var(--shiki-light-24292E, #24292E);">,                               </span><span style="color: var(--shiki-light-6A737D, #6A737D);">// 邮件类型 （0 收件 1 发件）</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">      "content"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-032F62, #032F62);">"&lt;div&gt;Hello word&lt;/div&gt;"</span><span style="color: var(--shiki-light-24292E, #24292E);">,      </span><span style="color: var(--shiki-light-6A737D, #6A737D);">// 邮件HTML</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">      "text"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-032F62, #032F62);">"Hello word"</span><span style="color: var(--shiki-light-24292E, #24292E);">,                    </span><span style="color: var(--shiki-light-6A737D, #6A737D);">// 邮件纯文本</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">      "isDel"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-005CC5, #005CC5);">0</span><span style="color: var(--shiki-light-6A737D, #6A737D);">                               // 是否删除 （0 正常 1 删除）</span></span>
+<span class="line"><span style="color: var(--shiki-light-24292E, #24292E);">    }</span></span>
+<span class="line"><span style="color: var(--shiki-light-24292E, #24292E);">  ]</span></span>
+<span class="line"><span style="color: var(--shiki-light-24292E, #24292E);">}</span></span></code></pre>
+                  </div>
+
+                  <h2 id="添加用户" tabindex="-1">添加用户 <a class="header-anchor" href="#添加用户" aria-label="Permalink to &quot;添加用户&quot;">&ZeroWidthSpace;</a></h2>
+                  <p><strong>接口地址</strong>：<code>POST /api/public/addUser</code></p>
+                  <p><strong>请求头</strong></p>
+                  <table tabindex="0">
+                    <thead><tr><th>Header</th><th>必填</th><th>说明</th></tr></thead>
+                    <tbody><tr><td>Authorization</td><td>是</td><td>身份令牌</td></tr></tbody>
+                  </table>
+                  <p><strong>请求参数</strong></p>
+                  <table tabindex="0">
+                    <thead><tr><th>参数</th><th>类型</th><th>必填</th><th>描述</th></tr></thead>
+                    <tbody>
+                      <tr><td>list</td><td>array &lt;object&gt;</td><td>用户</td><td>数组</td></tr>
+                      <tr><td>└─ email</td><td>string</td><td>是</td><td>邮箱地址</td></tr>
+                      <tr><td>└─ password</td><td>sting</td><td>否</td><td>密码，不填自动生成</td></tr>
+                      <tr><td>└─ roleName</td><td>sting</td><td>否</td><td>权限身份名，不填自动选择默认权限身份</td></tr>
+                    </tbody>
+                  </table>
+                  <p><strong>返回示例</strong></p>
+                  <div class="language-json vp-adaptive-theme">
+                    <button title="Copy Code" class="copy"></button>
+                    <span class="lang">json</span>
+                    <pre class="shiki shiki-themes github-light github-dark vp-code" tabindex="0"><code><span class="line"><span style="color: var(--shiki-light-24292E, #24292E);">{</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">  "code"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-005CC5, #005CC5);">200</span><span style="color: var(--shiki-light-24292E, #24292E);">,</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">  "message"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-032F62, #032F62);">"success"</span><span style="color: var(--shiki-light-24292E, #24292E);">,</span></span>
+<span class="line"><span style="color: var(--shiki-light-005CC5, #005CC5);">  "data"</span><span style="color: var(--shiki-light-24292E, #24292E);">: </span><span style="color: var(--shiki-light-005CC5, #005CC5);">null</span></span>
+<span class="line"><span style="color: var(--shiki-light-24292E, #24292E);">}</span></span></code></pre>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </el-scrollbar>
+        </el-tab-pane>
+
       </el-tabs>
     </el-card>
   </div>
@@ -121,5 +237,58 @@ const activeTab = ref('send')
 .html-content ol li {
   margin-bottom: 25px;
   line-height: 1.6;
+}
+
+/* API 文档样式适配 */
+.html-content h2 {
+  font-size: 20px;
+  margin: 30px 0 15px 0;
+  border-bottom: 1px solid var(--el-border-color-lighter, #ebeef5);
+  padding-bottom: 8px;
+}
+.html-content p {
+  margin-bottom: 12px;
+  line-height: 1.6;
+}
+.html-content code {
+  background-color: var(--el-fill-color-light, #f5f7fa);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--el-text-color-regular, #606266);
+  font-size: 14px;
+}
+.html-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 24px 0;
+  font-size: 14px;
+}
+.html-content th, .html-content td {
+  border: 1px solid var(--el-border-color-lighter, #ebeef5);
+  padding: 10px 14px;
+  text-align: left;
+}
+.html-content th {
+  background-color: var(--el-fill-color-light, #f5f7fa);
+  font-weight: bold;
+}
+.html-content .custom-block.tip {
+  background-color: #f0f9eb;
+  padding: 12px 16px;
+  border-radius: 6px;
+  border-left: 4px solid #67c23a;
+  margin: 20px 0;
+}
+.html-content .vp-code {
+  background-color: var(--el-fill-color-dark, #282c34);
+  padding: 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  line-height: 1.5;
+  font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+  margin: 10px 0 20px 0;
+}
+.html-content .vp-code .line {
+  display: block;
 }
 </style>
