@@ -178,8 +178,8 @@
     
     
     <pre data-v-de1cf815="" class="shiki shiki-themes github-light github-dark vp-code" tabindex="0" style="line-height: 1.6;"><code _ngcontent-ng-c1976125850="" role="text"><span class="hljs-comment">// 1. 先定义您的账号密码</span>
-<span class="hljs-keyword">const</span> host = <span class="hljs-string">'https://email.baidusvip.com'</span>;
-<span class="hljs-keyword">const</span> account = { <span class="hljs-attr">email</span>: <span class="hljs-string">'admin@baidusvip.com'</span>, <span class="hljs-attr">password</span>: <span class="hljs-string">'123456'</span> };
+<span class="hljs-keyword">const</span> host = <span class="hljs-string">'https://xxx.xxx'</span>;
+<span class="hljs-keyword">const</span> account = { <span class="hljs-attr">email</span>: <span class="hljs-string">'你登陆时的邮箱（xxx@xxx.xxx'</span>, <span class="hljs-attr">password</span>: <span class="hljs-string">'你的登陆密码'</span> };
 
 <span class="hljs-comment">// 2. 一键获取 Token 并查询最新邮件</span>
 fetch(<span class="hljs-string">`<span class="hljs-subst">${host}</span>/api/public/genToken`</span>, {
