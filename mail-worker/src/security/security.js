@@ -108,9 +108,10 @@ app.use('*', async (c, next) => {
 			providedToken = c.req.query('api_key');
 		}
 
-		if (providedToken !== dynamicToken && providedToken !== staticToken) {
+		if (!providedToken || (providedToken !== dynamicToken && providedToken !== staticToken)) {
 			throw new BizError(t('publicTokenFail'), 401);
 		}
+		
 		return await next();
 	}
 
