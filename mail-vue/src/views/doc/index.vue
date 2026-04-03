@@ -211,6 +211,20 @@ fetch(<span class="hljs-string">`<span class="hljs-subst">${host}</span>/api/pub
 .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> <span class="hljs-built_in">console</span>.error(err));
 </code></pre>
    </div>
+  <h2 data-v-f8772f93="" data-v-de1cf815="" id="💡 GET 请求API的使用说明：" tabindex="-1">💡 GET 请求API的使用说明：</h2>
+  <p style="line-height: 2.2;margin-bottom: 12px;">👉<code style="background-color: #e1e3e3;padding: 4px;font-size: 13px;border-radius: 4px;font-weight: 400;">https://xxx.xxx/api/test/allEmail/list?key=您的暗号</code>
+  <br>(您的暗号是CF设置里的<code style="background-color: #e1e3e3;padding: 4px;font-size: 13px;border-radius: 4px;font-weight: 400;">变量和机密</code>设置的<code style="background-color: #e1e3e3;padding: 4px;font-size: 13px;border-radius: 4px;font-weight: 400;">api_key</code>的的值，如默认的:<code style="background-color: #e1e3e3;padding: 4px;font-size: 13px;border-radius: 4px;font-weight: 400;">888</code>，最好你自己修改个)
+  </p>
+  <ol style="line-height: 1.8; padding-left: 20px;">
+  <li style="margin-bottom: 12px;">1、获取收到的邮件（比如一次看50条）<br><code style="background-color: #e1e3e3;padding: 4px;font-size: 13px;border-radius: 4px;font-weight: 400;">https://xxx.xxx/api/test/allEmail/list?key=您的暗号&amp;size=50</code></li>
+  <li style="margin-bottom: 12px;">2、获取发送的邮件（比如一次看50条）<br><code style="background-color: #e1e3e3;padding: 4px;font-size: 13px;border-radius: 4px;font-weight: 400;">https://xxx.xxx/api/test/allEmail/list?key=您的暗号&amp;size=50&amp;show=from</code></li>
+  <li style="margin-bottom: 12px;">3、搜索邮件标题包含“验证码”的邮件<br><code style="background-color: #e1e3e3;padding: 4px;font-size: 13px;border-radius: 4px;font-weight: 400;">https://xxx.xxx/api/test/allEmail/list?key=您的暗号&amp;subject=验证码</code></li>
+  <li style="margin-bottom: 12px;">4、搜索特定邮箱地址（发件人地址包含 google）<br><code style="background-color: #e1e3e3;padding: 4px;font-size: 13px;border-radius: 4px;font-weight: 400;">https://xxx.xxx/api/test/allEmail/list?key=您的暗号&amp;to=google</code></li>
+  <li style="margin-bottom: 12px;">5、搜索特定邮箱地址（收件人地址包含 apple）<br><code style="background-color: #e1e3e3;padding: 4px;font-size: 13px;border-radius: 4px;font-weight: 400;">https://xxx.xxx/api/test/allEmail/list?key=您的暗号&amp;from=apple</code></li>
+  <li style="margin-bottom: 12px;">6、搜索邮件正文包含“验证码”的邮件<br><code style="background-color: #e1e3e3;padding: 4px;font-size: 13px;border-radius: 4px;font-weight: 400;">https://xxx.xxx/api/test/allEmail/list?key=您的暗号&amp;content=验证码</code></li>
+  <li style="margin-bottom: 12px;">7、终极组合（获取邮件标题包含“验证码”的最新50条收件）<br><code style="background-color: #e1e3e3;padding: 4px;font-size: 13px;border-radius: 4px;font-weight: 400;">https://xxx.xxx/api/test/allEmail/list?key=您的暗号&amp;size=50&amp;subject=验证码</code></li>
+  <li style="margin-bottom: 12px;">8、终极组合（获取邮件正文包含“验证码”的最新50条收件）<br><code style="background-color: #e1e3e3;padding: 4px;font-size: 13px;border-radius: 4px;font-weight: 400;">https://xxx.xxx/api/test/allEmail/list?key=您的暗号&amp;size=50&amp;content=验证码</code></li>
+  </ol>
                 </div>
               </div>
             </div>
