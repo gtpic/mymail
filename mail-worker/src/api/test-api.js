@@ -34,10 +34,10 @@ app.get('/test/allEmail/list', async (c) => {
 			const targetType = showType === 'from' ? 1 : 0;
 			if (email.type !== targetType) return false;
 
-			// B. 匹配收件人关键字 (to)
+			// B. 匹配收件人地址关键字 (to)
 			if (filterTo && !(email.toEmail && email.toEmail.includes(filterTo))) return false;
 
-			// C. 匹配发件人关键字 (from)
+			// C. 匹配发件人地址关键字 (from)
 			if (filterFrom && !(email.sendEmail && email.sendEmail.includes(filterFrom))) return false;
 
 			// D. 匹配标题关键字 (subject)
