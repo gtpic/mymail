@@ -100,15 +100,19 @@ app.use('*', async (c, next) => {
 	}
 
 	if (path.startsWith('/public')) {
+		const dynamicToken = await c.env.kv.get(KvConst.PUBLIC_KEY);
+		const staticToken = c.env.api_key;
+		
+		let providedToken = c.req.header(constant.TOKEN_HEADER);
+		if (!providedToken) {
+			providedToken = c.req.query('api_key');
+		}
 
-		const userPublicToken = await c.env.kv.get(KvConst.PUBLIC_KEY);
-		const publicToken = c.req.header(constant.TOKEN_HEADER);
-		if (publicToken !== userPublicToken) {
+		if (providedToken !== dynamicToken && providedToken !== staticToken) {
 			throw new BizError(t('publicTokenFail'), 401);
 		}
 		return await next();
 	}
-
 
 	const jwt = c.req.header(constant.TOKEN_HEADER);
 
