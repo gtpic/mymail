@@ -9,7 +9,6 @@ app.get('/test/allEmail/list', async (c) => {
 	if (query.key !== secretKey) {
 		return c.json(result.fail('暗号错误，无权访问', 401));
 	}
-
 	try {
 		query.size = query.size ? Number(query.size) : 20;
 		if (query.emailId) query.emailId = Number(query.emailId);
@@ -64,8 +63,20 @@ app.get('/test/allEmail/list', async (c) => {
 
 		// 6. 格式化输出
 		const formattedList = data.list.map(email => {
+			// 处理纯文本字段
 			const textPart = email.text ? email.text.replace(/\s+/g, ' ').trim() : '';
-			const contentPart = email.content ? email.content.replace(/\s+/g, ' ').trim() : '';
+			
+			// 处理 HTML 字段，通过正则剥离代码提取纯正文
+			let contentPart = '';
+			if (email.content) {
+				contentPart = email.content
+					.replace(/<(style|script)[^>]*>[\s\S]*?<\/\1>/gi, '') 
+					.replace(/<[^>]+>/g, ' ')                             
+					.replace(/&nbsp;/gi, ' ')                             
+					.replace(/&[a-z]+;/gi, '')                            
+					.replace(/\s+/g, ' ')                                 
+					.trim();
+			}
 			
 			let bodyContent = '';
 			if (textPart && contentPart) {
@@ -75,6 +86,7 @@ app.get('/test/allEmail/list', async (c) => {
 			}
 			return `${email.createTime} | ${email.sendEmail || '未知'} -> ${email.toEmail || '未知'} | ${bodyContent}`;
 		});
+
 		return c.text(formattedList.join('\n\n'));
 	} catch (error) {
 		return c.json(result.fail(error.message, 500));
