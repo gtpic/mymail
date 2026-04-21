@@ -2,7 +2,40 @@
   <div class="doc-container">
     <el-card class="doc-card" shadow="never">
       <el-tabs v-model="activeTab" class="doc-tabs">
-        
+	  
+		<el-tab-pane label="添加域名" name="domain">
+          <el-scrollbar height="calc(100vh - 180px)">
+            <div class="html-content">
+              <div style="text-align: left;">
+                <h1 id="添加域名" style="text-align: center;" tabindex="-1"><span style="font-size: 24px;">添加域名</span></h1>
+              </div>
+              <ol style="font-size: 18px; font-weight: bold;">
+                <li style="text-align: left;">1、<br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/添加域名1.webp" alt="" /></li>
+                <li style="text-align: left;">2、<br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/添加域名2.webp" alt="" /></li>
+                <li style="text-align: left;">3、<br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/添加域名3.webp" alt="" /></li>
+                <li style="text-align: left;">4、<br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/添加域名4.webp" alt="" /></li>
+                <li style="text-align: left;">5、<br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/添加域名5.webp" alt="" /></li>
+				<li style="text-align: left;">6、<br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/添加域名6.webp" alt="" /></li>
+                <li style="text-align: left;">7、<br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/添加域名7.webp" alt="" /></li>
+                <li style="text-align: left;">8、<br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/添加域名8.webp" alt="" /></li>
+				<li data-v-876dd7b7="" style="text-align: left; font-size: 15px;">9、添加域名的地方点后那个笔的图标，然后只在值的地方填上要加的域名如：
+					<span data-v-876dd7b7="" style="font-size: 14px;color: #ff00dd;">
+					<code data-v-876dd7b7="" style="background-color: rgb(228 232 233);padding: 5px;border-radius: 4px;font-size: 11px;font-weight: 600;color: #ff00dd;">["你的域名1","你的域名2","你的域名3","你的更多域名"]</code>
+					</span><br data-v-876dd7b7="">
+					注意：每个域名用英文的双引号包括
+					<code data-v-876dd7b7="" style="background-color: rgb(228 232 233);padding: 5px;border-radius: 4px;font-size: 11px;font-weight: 600;color: #ff00dd;">""</code>
+					然后用英文逗号
+					<code data-v-876dd7b7="" style="background-color: rgb(228 232 233);padding: 5px;border-radius: 4px;font-size: 11px;font-weight: 600;color: #ff00dd;">,</code>
+					最后一个
+					<code data-v-876dd7b7="" style="background-color: rgb(228 232 233);padding: 5px;border-radius: 4px;font-size: 11px;font-weight: 600;color: #ff00dd;">"域名"</code>
+					后面不要英文逗号。
+					<br data-v-876dd7b7=""><img data-v-876dd7b7="" src="/image/添加域名9.webp" alt="" style="cursor: pointer; border: 1px solid rgb(204, 204, 204); margin-bottom: 10px; border-radius: 8px;">
+				</li>
+              </ol>
+            </div>
+          </el-scrollbar>
+        </el-tab-pane>
+
         <el-tab-pane label="邮件发送" name="send">
           <el-scrollbar height="calc(100vh - 180px)">
             <div class="html-content">
@@ -15,14 +48,14 @@
               <ol style="font-size: 18px; font-weight: bold;">
                 <li style="text-align: left;">1、<a href="https://resend.com/login" target="_blank" rel="noopener">注册Resend</a>，并添加域名，完成DNS验证<br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/邮件发送1.png" alt="" /></li>
                 <li style="text-align: left;">2、创建 API Key 并复制<br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/邮件发送2.png" alt="" /></li>
-                <li style="text-align: left;">3、设置发送状态回调 <span style="color: #3598db;"><span style="font-size: 14px;"><code style="background-color: #f5f5f5; padding: 5px 5px; border-radius: 4px; font-weight: 600;">https://worker自定义域/api/webhooks</code></span></span><br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/邮件发送3.png" alt="" /></li>
+                <li style="text-align: left;">3、设置发送状态回调 <span style="color: #3598db;"><span style="font-size: 14px;"><code style="background-color: rgb(228 232 233);padding: 5px;border-radius: 4px;font-size: 11px;font-weight: 600;color: #ff00dd;">https://worker自定义域/api/webhooks</code></span></span><br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/邮件发送3.png" alt="" /></li>
                 <li style="text-align: left;">4、选择对应选项<br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/邮件发送4.png" alt="" /></li>
                 <li style="text-align: left;">5、系统设置<br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/邮件发送5.png" alt="" /></li>
               </ol>
             </div>
           </el-scrollbar>
         </el-tab-pane>
-
+		
         <el-tab-pane label="邮件转发" name="forward">
           <el-scrollbar height="calc(100vh - 180px)">
             <div class="html-content">
@@ -31,10 +64,10 @@
               </div>
               <h1 id="转发到TG" style="text-align: left;" tabindex="-1"><span style="font-size: 18px;">一、转发到TG</span></h1>
               <ol style="font-size: 18px; font-weight: bold;">
-                <li style="text-align: left;">1、在TG找到这个人<span style="font-size: 16px; color: #0297ff;"><code style="background-color: #f5f5f5; padding: 5px 5px; border-radius: 4px; font-weight: 600;">@BotFather</code></span><br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/邮件转发1.png" alt="" /></li>
+                <li style="text-align: left;">1、在TG找到这个人<span style="font-size: 16px; color: #0297ff;"><code style="background-color: rgb(228 232 233);padding: 5px;border-radius: 4px;font-size: 11px;font-weight: 600;color: #ff00dd;">@BotFather</code></span><br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/邮件转发1.png" alt="" /></li>
                 <li style="text-align: left;">2、创建机器人，复制Token<br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/邮件转发2.png" alt="" /></li>
                 <li style="text-align: left;">3、给机器人发消息 <br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/邮件转发3.png" alt="" /></li>
-                <li style="text-align: left;">4、浏览器输入&nbsp;<span style="font-size: 16px; color: #0297ff;"><code style="background-color: #f5f5f5; padding: 5px 5px; border-radius: 4px; font-weight: 600;">https://api.telegram.org/bot</code></span>你的机器Token<span style="color: #0691ee;"><span style="font-size: 16px; color: #0297ff;"><code style="background-color: #f5f5f5; padding: 5px 5px; border-radius: 4px; font-weight: 600;">/getUpdates</code></span> </span>获取chat_id，如果获取不到就再给机器人发几条消息<br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/邮件转发4.png" alt="" /></li>
+                <li style="text-align: left;">4、浏览器输入：<span style="font-size: 16px; color: #0297ff;"><code style="background-color: rgb(228 232 233);padding: 5px;border-radius: 4px;font-size: 11px;font-weight: 600;color: #ff00dd;">https://api.telegram.org/bot</code></span>你的机器Token：<span style="color: #0691ee;"><span style="font-size: 16px; color: #0297ff;"><code style="background-color: rgb(228 232 233);padding: 5px;border-radius: 4px;font-size: 11px;font-weight: 600;color: #ff00dd;">/getUpdates</code></span> </span>获取chat_id，如果获取不到就再给机器人发几条消息<br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/邮件转发4.png" alt="" /></li>
                 <li style="text-align: left;">5、系统设置 <br/><img style="cursor: pointer; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 8px;" src="/image/邮件转发5.png" alt="" /></li>
               </ol>
               <h1 id="转发到其他邮箱" style="text-align: center;" tabindex="-1"><span style="font-size: 24px;">二、转发到其他邮箱</span></h1>
