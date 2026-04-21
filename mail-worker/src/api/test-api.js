@@ -64,11 +64,18 @@ app.get('/test/allEmail/list', async (c) => {
 
 		// 6. 格式化输出
 		const formattedList = data.list.map(email => {
-			const textContent = email.text ? email.text.replace(/\s+/g, ' ').trim() : '';
-			return `${email.createTime} | ${email.sendEmail || '未知'} -> ${email.toEmail || '未知'} | ${textContent}`;
+			const textPart = email.text ? email.text.replace(/\s+/g, ' ').trim() : '';
+			const contentPart = email.content ? email.content.replace(/\s+/g, ' ').trim() : '';
+			
+			let bodyContent = '';
+			if (textPart && contentPart) {
+				bodyContent = textPart + '\n' + contentPart; 
+			} else {
+				bodyContent = textPart || contentPart || '无内容'; 
+			}
+			return `${email.createTime} | ${email.sendEmail || '未知'} -> ${email.toEmail || '未知'} | ${bodyContent}`;
 		});
-
-		return c.text(formattedList.join('\n'));
+		return c.text(formattedList.join('\n\n'));
 	} catch (error) {
 		return c.json(result.fail(error.message, 500));
 	}
